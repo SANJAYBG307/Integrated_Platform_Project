@@ -1,0 +1,159 @@
+[
+  {
+    "model": "users.customuser",
+    "pk": 1,
+    "fields": {
+      "username": "admin",
+      "email": "admin@aiplatform.local",
+      "full_name": "Platform Administrator",
+      "is_staff": true,
+      "is_superuser": true,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "preferred_ai_model": "gpt-3.5-turbo",
+      "ai_summary_length": "medium",
+      "is_premium": true
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": 2,
+    "fields": {
+      "username": "demo_user",
+      "email": "demo@aiplatform.local",
+      "full_name": "Demo User",
+      "is_staff": false,
+      "is_superuser": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "preferred_ai_model": "gpt-3.5-turbo",
+      "ai_summary_length": "medium",
+      "is_premium": false
+    }
+  },
+  {
+    "model": "notes.category",
+    "pk": 1,
+    "fields": {
+      "name": "Work",
+      "description": "Work-related notes and documents",
+      "color": "#007bff",
+      "icon": "briefcase"
+    }
+  },
+  {
+    "model": "notes.category",
+    "pk": 2,
+    "fields": {
+      "name": "Personal",
+      "description": "Personal notes and thoughts",
+      "color": "#28a745",
+      "icon": "user"
+    }
+  },
+  {
+    "model": "notes.category",
+    "pk": 3,
+    "fields": {
+      "name": "Ideas",
+      "description": "Creative ideas and brainstorming",
+      "color": "#ffc107",
+      "icon": "lightbulb"
+    }
+  },
+  {
+    "model": "notes.tag",
+    "pk": 1,
+    "fields": {
+      "name": "important"
+    }
+  },
+  {
+    "model": "notes.tag",
+    "pk": 2,
+    "fields": {
+      "name": "ai"
+    }
+  },
+  {
+    "model": "notes.tag",
+    "pk": 3,
+    "fields": {
+      "name": "productivity"
+    }
+  },
+  {
+    "model": "tasks.tasklist",
+    "pk": 1,
+    "fields": {
+      "user": 2,
+      "name": "Personal Tasks",
+      "description": "My personal task list",
+      "color": "#28a745",
+      "icon": "list",
+      "is_default": true
+    }
+  },
+  {
+    "model": "tasks.tasklist",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "name": "Work Projects",
+      "description": "Work-related projects and tasks",
+      "color": "#007bff",
+      "icon": "briefcase",
+      "is_default": false
+    }
+  },
+  {
+    "model": "ai_engine.aiprovider",
+    "pk": 1,
+    "fields": {
+      "name": "openai",
+      "display_name": "OpenAI",
+      "api_endpoint": "https://api.openai.com/v1",
+      "is_active": true,
+      "max_tokens": 4000,
+      "cost_per_token": 0.0,
+      "rate_limit_per_minute": 60
+    }
+  },
+  {
+    "model": "ai_engine.aimodel",
+    "pk": 1,
+    "fields": {
+      "provider": 1,
+      "model_name": "gpt-3.5-turbo",
+      "display_name": "GPT-3.5 Turbo",
+      "description": "Fast and efficient model for most tasks",
+      "max_tokens": 4096,
+      "cost_per_1k_tokens": 0.002,
+      "is_active": true,
+      "capabilities": {
+        "text_generation": true,
+        "summarization": true,
+        "analysis": true
+      }
+    }
+  },
+  {
+    "model": "ai_engine.aimodel",
+    "pk": 2,
+    "fields": {
+      "provider": 1,
+      "model_name": "gpt-4",
+      "display_name": "GPT-4",
+      "description": "Most capable model for complex tasks",
+      "max_tokens": 8192,
+      "cost_per_1k_tokens": 0.03,
+      "is_active": true,
+      "capabilities": {
+        "text_generation": true,
+        "summarization": true,
+        "analysis": true,
+        "reasoning": true
+      }
+    }
+  }
+]

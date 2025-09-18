@@ -1,0 +1,166 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: ai_platform_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: Integrated_Platform
+      MYSQL_USER: Saas_User
+      MYSQL_PASSWORD: Saas@123
+      MYSQL_ROOT_PASSWORD: root_password_123
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ../../database/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3306:3306"
+    networks:
+      - ai_platform_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Redis Cache and Message Broker
+  redis:
+    image: redis:7-alpine
+    container_name: ai_platform_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass redis_password_123
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - ai_platform_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Django Web Application
+  web:
+    build: ../..
+    container_name: ai_platform_web
+    restart: unless-stopped
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=your-super-secret-key-change-in-production
+      - DB_NAME=Integrated_Platform
+      - DB_USER=Saas_User
+      - DB_PASSWORD=Saas@123
+      - DB_HOST=db
+      - DB_PORT=3306
+      - REDIS_URL=redis://:redis_password_123@redis:6379/0
+      - CELERY_BROKER_URL=redis://:redis_password_123@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:redis_password_123@redis:6379/0
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AI_MODEL=gpt-3.5-turbo
+      - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+    volumes:
+      - ./media:/app/media
+      - ./staticfiles:/app/staticfiles
+      - ./logs:/app/logs
+    ports:
+      - "8000:8000"
+      - "80:80"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - ai_platform_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Celery Worker
+  celery_worker:
+    build: ../..
+    container_name: ai_platform_celery
+    restart: unless-stopped
+    command: celery -A ai_productivity_platform worker --loglevel=info --concurrency=4
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=your-super-secret-key-change-in-production
+      - DB_NAME=Integrated_Platform
+      - DB_USER=Saas_User
+      - DB_PASSWORD=Saas@123
+      - DB_HOST=db
+      - DB_PORT=3306
+      - REDIS_URL=redis://:redis_password_123@redis:6379/0
+      - CELERY_BROKER_URL=redis://:redis_password_123@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:redis_password_123@redis:6379/0
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AI_MODEL=gpt-3.5-turbo
+    volumes:
+      - ./media:/app/media
+      - ./logs:/app/logs
+    depends_on:
+      - db
+      - redis
+    networks:
+      - ai_platform_network
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A ai_productivity_platform inspect ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Celery Beat Scheduler
+  celery_beat:
+    build: ../..
+    container_name: ai_platform_celery_beat
+    restart: unless-stopped
+    command: celery -A ai_productivity_platform beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=your-super-secret-key-change-in-production
+      - DB_NAME=Integrated_Platform
+      - DB_USER=Saas_User
+      - DB_PASSWORD=Saas@123
+      - DB_HOST=db
+      - DB_PORT=3306
+      - REDIS_URL=redis://:redis_password_123@redis:6379/0
+      - CELERY_BROKER_URL=redis://:redis_password_123@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:redis_password_123@redis:6379/0
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./media:/app/media
+      - ./logs:/app/logs
+    depends_on:
+      - db
+      - redis
+    networks:
+      - ai_platform_network
+
+  # Celery Flower (Optional - for monitoring)
+  flower:
+    build: ../..
+    container_name: ai_platform_flower
+    restart: unless-stopped
+    command: celery -A ai_productivity_platform flower --port=5555
+    environment:
+      - CELERY_BROKER_URL=redis://:redis_password_123@redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://:redis_password_123@redis:6379/0
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+    networks:
+      - ai_platform_network
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  ai_platform_network:
+    driver: bridge

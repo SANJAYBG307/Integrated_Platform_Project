@@ -1,0 +1,132 @@
+{
+    // Python Configuration
+    "python.defaultInterpreterPath": "./venv/bin/python",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+        "--ignore=E203,W503"
+    ],
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length=120"
+    ],
+    "python.sortImports.args": [
+        "--profile=black",
+        "--line-length=120"
+    ],
+
+    // Django Configuration
+    "python.analysis.extraPaths": [
+        "./backend"
+    ],
+    "emmet.includeLanguages": {
+        "django-html": "html"
+    },
+    "files.associations": {
+        "*.html": "django-html",
+        "*.txt": "django-txt"
+    },
+
+    // Editor Configuration
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    "editor.rulers": [120],
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+
+    // File Exclusions
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/node_modules": true,
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/venv": true,
+        "**/env": true,
+        "**/*.egg-info": true,
+        "**/frontend/static/dist": true,
+        "**/media": true,
+        "**/monitoring/logs": true
+    },
+
+    // Search Exclusions
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "**/venv": true,
+        "**/env": true,
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/frontend/static/dist": true,
+        "**/media": true,
+        "**/monitoring/logs": true,
+        "**/*.log": true,
+        "**/cache": true,
+        "**/tmp": true,
+        "**/backups": true
+    },
+
+    // Auto Save
+    "files.autoSave": "onFocusChange",
+
+    // Terminal
+    "terminal.integrated.defaultProfile.osx": "bash",
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+
+    // Extension Specific Settings
+    "pylance.typeCheckingMode": "basic",
+    "python.analysis.typeCheckingMode": "basic",
+
+    // Git Configuration
+    "git.ignoreLimitWarning": true,
+
+    // HTML/CSS/JS
+    "html.format.wrapLineLength": 120,
+    "css.format.wrapLineLength": 120,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+
+    // Spelling
+    "cSpell.words": [
+        "django",
+        "djangorestframework",
+        "celery",
+        "redis",
+        "openai",
+        "pytest",
+        "flake",
+        "isort",
+        "gunicorn",
+        "wsgi",
+        "asgi",
+        "serializers",
+        "viewsets",
+        "middlewares",
+        "templatetags",
+        "admin",
+        "migrations",
+        "urls",
+        "settings",
+        "apps"
+    ],
+
+    // REST Client
+    "rest-client.environmentVariables": {
+        "local": {
+            "baseUrl": "http://localhost:8000",
+            "token": ""
+        },
+        "production": {
+            "baseUrl": "https://your-domain.com",
+            "token": ""
+        }
+    }
+}

@@ -1,0 +1,246 @@
+# AI Productivity Platform .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+.static_storage/
+.media/
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.staging
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Security
+*.pem
+*.key
+*.crt
+*.p12
+secrets.json
+config/secrets/
+
+# AI API Keys (double protection)
+*api_key*
+*openai*
+*anthropic*
+*.secret
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database
+*.sqlite
+*.db
+*.sql
+mysql_data/
+postgres_data/
+
+# Cache
+.cache/
+.parcel-cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nyc_output
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# Compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+.tmp/
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Redis dump
+dump.rdb
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Testing
+.coverage
+.pytest_cache/
+.nose/
+cover/
+.hypothesis/
+
+# Documentation
+docs/_build/
+site/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Node.js (if using frontend build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+
+# Frontend builds
+/static/js/
+/static/css/
+/static/img/
+!/static/js/main.js
+!/static/css/style.css
+
+# Webpack
+webpack-stats.json
+
+# Sentry
+.sentryclirc
+
+# Local development
+local_data/
+test_data/
+sample_data/
+
+# AI generated content (temporary files)
+ai_temp/
+ai_cache/
+
+# User uploads (keep structure, ignore content)
+media/*
+!media/.gitkeep
+
+# Backup and migration files
+backups/
+migrations_backup/
+
+# Performance profiling
+profile_output/
+*.prof
+
+# SSL Certificates
+*.crt
+*.key
+*.pem
+*.p12
+ssl/
+
+# Configuration overrides
+local_config.py
+local_settings.py
+production_settings.py
+
+# Error reports
+error_reports/
+crash_reports/
+
+# Monitoring data
+monitoring/
+metrics/
+
+# Third-party integrations
+integrations/config/
+webhooks/logs/

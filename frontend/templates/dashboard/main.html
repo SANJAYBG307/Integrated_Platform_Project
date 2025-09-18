@@ -1,0 +1,37 @@
+{% extends 'base/main.html' %}
+{% load static %}
+
+{% block title %}Dashboard - AI Productivity Platform{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Welcome Section -->
+    <div class="col-12">
+        <div class="card border-0 bg-gradient-primary text-white mb-4">
+            <div class="card-body">
+                <h1 class="card-title">
+                    <i class="fas fa-sparkles me-2"></i>
+                    Welcome back, {{ user.display_name|default:user.username }}!
+                </h1>
+                <p class="card-text">Your AI-powered productivity hub is ready to help you achieve more.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Dashboard Components -->
+{% include 'dashboard/components/stats_cards.html' %}
+{% include 'dashboard/components/recent_content.html' %}
+{% include 'dashboard/components/ai_insights.html' %}
+{% include 'dashboard/components/quick_actions.html' %}
+
+<!-- Modals -->
+{% include 'dashboard/modals/quick_note.html' %}
+{% include 'dashboard/modals/quick_task.html' %}
+{% include 'dashboard/modals/ai_analyzer.html' %}
+
+<!-- Dashboard Scripts -->
+{% block extra_js %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}
+{% endblock %}
